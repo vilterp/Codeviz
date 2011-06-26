@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Codeviz-JythonTest" default="compile_and_make_jar" basedir=".">
+	
+	<target name="properties">
+	  <property name="src" location="src"/>
+  	<property name="lib" location="lib"/>
+  	<property name="build" location="out"/>
+
+  	<path id="project.classpath">
+  	 <pathelement location="${build}"/>
+  	 <fileset dir="${lib}">
+  	   <include name="*.jar"/>
+  	 </fileset>
+  	</path>
+	</target>
+	
+	<target name="init" depends="properties">
+	 <mkdir dir="${build}"/>
+	</target>
+	
+	<target name="compile" depends="init">
+		<javac destdir="${build}" source="1.5" target="1.5" debug="true">
+		  <src path="${src}"/>
+		  <classpath refid="project.classpath"/>
+		</javac>
+	</target>
+	
+	<target name="test" depends="compile">
+		<java classname="org.codeviz.test.jythonplumbingtest.JythonEditor" fork="true">
+		  <classpath refid="project.classpath"/>
+		</java>
+	</target>
+	
+</project>
